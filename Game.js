@@ -13,8 +13,6 @@ import { Floor } from './components/Floor';
 
 
 function Game() {
-  // const [entities, setEntities] = useState({});
-
   const setupWorld = () => {
     let engine = Matter.Engine.create({
       enableSleeping: false,
@@ -36,18 +34,23 @@ function Game() {
       { isStatic: true }
     );
 
+    let ceiling = Matter.Bodies.rectangle(
+      Constants.MAX_WIDTH / 2,
+      25,
+      Constants.MAX_WIDTH + 4,
+      50,
+      { isStatic: true }
+    );
+
+
     Matter.World.add(world, [bird, floor]);
     return {
       physics: { engine: engine, world: world },
-      floor1: { body: floor, renderer: Floor },
-      // floor2: { body: floor2, renderer: Floor },
+      floor: { body: floor, renderer: Floor },
+      ceiling: { body: ceiling, renderer: Floor },
       bird: { body: bird, renderer: Bird },
     }
   }
-
-  // useEffect(() => {
-  //   setEntities(setupWorld());
-  // }, [])
 
   return (
     <GameEngine
